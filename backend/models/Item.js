@@ -1,10 +1,16 @@
+// item.js
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const itemSchema = new Schema({
+const itemSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
+  },
+  group: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Group',
+    required: true, // Each item must belong to a group
   },
 });
 

@@ -1,7 +1,6 @@
-const { Schema, model} = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 
-const groupSchema = new Schema({
+const groupSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -9,12 +8,12 @@ const groupSchema = new Schema({
   },
   items: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Item'  
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Item',
     },
   ],
 });
 
-const Group = model('Group', groupSchema);
+const Group = mongoose.model('Group', groupSchema);
 
 module.exports = Group;
