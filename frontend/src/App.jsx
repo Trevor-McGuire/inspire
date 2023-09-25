@@ -23,7 +23,9 @@ function App() {
         <Nav 
           setActiveModal={setActiveModal}  
           setActiveGroupId={setActiveGroupId}
+          activeGroupId={activeGroupId}
           setActiveItemId={setActiveItemId}
+          activeItemId={activeItemId}
         />
         <Outlet 
 

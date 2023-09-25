@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { READ_GROUPS } from "../../utils/queries";
 import ItemList from "./ItemList";
 
-const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId }) => {
+const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId, activeGroupId, activeItemId }) => {
   const { loading, data } = useQuery(READ_GROUPS);
   const groups = data?.readGroups || {};
 

@@ -36,9 +36,6 @@ const CreateGroup = ({ setActiveModal }) => {
         onChange={(e) => setName(e.target.value)}
       />
       <div className="w3-section">
-        <a className="w3-button w3-red">
-          Cancel <i className="fa fa-remove" />
-        </a>
         <button className="w3-button w3-light-grey w3-right" type="submit">
           Submit <i className="fa fa-paper-plane" />
         </button>

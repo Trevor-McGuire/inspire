@@ -1,7 +1,7 @@
 import GroupList from "./GroupList";
 import CreateGroup from "./CreateGroup";
 
-const index = ({ setActiveModal, setActiveGroupId, setActiveItemId }) => {
+const index = ({ setActiveModal, setActiveGroupId, setActiveItemId, activeGroupId, activeItemId }) => {
   function w3_open() {
     document.getElementById("mySidebar").style.display = "block";
     document.getElementById("myOverlay").style.display = "block";
@@ -39,6 +39,8 @@ const index = ({ setActiveModal, setActiveGroupId, setActiveItemId }) => {
         setActiveModal={setActiveModal}
         setActiveGroupId={setActiveGroupId}
         setActiveItemId={setActiveItemId}
+        activeGroupId={activeGroupId}
+        activeItemId={activeItemId}
       />
     </nav>
   );
