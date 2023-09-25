@@ -1,11 +1,6 @@
-import GroupList from "../components/nav/GroupList";
-import Main from "../components/Main";
 import { useState } from "react";
 
 export default function UserProfile() {
-  const [selected, setSelected] = useState("");
-  const [groupId, setGroupId] = useState("");
-
   function w3_open() {
     document.getElementById("mySidebar").style.display = "block";
     document.getElementById("myOverlay").style.display = "block";
@@ -33,7 +28,7 @@ export default function UserProfile() {
         <div id="Borge" className="w3-container person">
           <br />
           <h5 className="w3-opacity">
-            <b>{selected.name}</b>
+            <b>{"selected.name"}</b>
           </h5>
           <hr />
         </div>
