@@ -1,4 +1,3 @@
-import React from "react";
 import { useRef } from "react";
 
 import CreateGroup from "./CreateGroup";
@@ -7,28 +6,28 @@ import UpdateGroup from "./UpdateGroup";
 import UpdateItem from "./UpdateItem";
 import Error from "./Error";
 
-
-const index = ({ 
-  activeModal, 
+const index = ({
+  activeModal,
   setActiveModal,
   activeGroupId,
-  activeItemId
+  activeItemId,
 }) => {
   const modalContentRef = useRef(null);
-
   function handleClickOutsideModal(e) {
-    if (modalContentRef.current && !modalContentRef.current.contains(e.target)) {
+    if (
+      modalContentRef.current &&
+      !modalContentRef.current.contains(e.target)
+    ) {
       setActiveModal(null);
     }
   }
-  
   return (
-    <div 
-      id="modal" 
-      className="w3-modal" 
-      style={{ 
-        zIndex: 4, 
-        display: activeModal ? "block" : "none"
+    <div
+      id="modal"
+      className="w3-modal"
+      style={{
+        zIndex: 4,
+        display: activeModal ? "block" : "none",
       }}
       onClick={handleClickOutsideModal}
     >
@@ -47,20 +46,30 @@ const index = ({
         <div className="w3-panel">
           {(() => {
             switch (activeModal) {
-              case "create-group": 
-                console.log("create-group")
+              case "create-group":
                 return <CreateGroup setActiveModal={setActiveModal} />;
               case "create-item":
-                console.log("create-item")
-                return <CreateItem setActiveModal={setActiveModal} activeGroupId={activeGroupId} />;
+                return (
+                  <CreateItem
+                    setActiveModal={setActiveModal}
+                    activeGroupId={activeGroupId}
+                  />
+                );
               case "update-group":
-                console.log("update-group")
-                return <UpdateGroup setActiveModal={setActiveModal} activeGroupId={activeGroupId} />;
+                return (
+                  <UpdateGroup
+                    setActiveModal={setActiveModal}
+                    activeGroupId={activeGroupId}
+                  />
+                );
               case "update-item":
-                console.log("update-item")
-                return <UpdateItem setActiveModal={setActiveModal} activeItemId={activeItemId} />;
+                return (
+                  <UpdateItem
+                    setActiveModal={setActiveModal}
+                    activeItemId={activeItemId}
+                  />
+                );
               default:
-                console.log("default")
                 return <Error />;
             }
           })()}

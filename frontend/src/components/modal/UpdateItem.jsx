@@ -1,26 +1,17 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { READ_ITEM } from "../../utils/queries";
-import { UPDATE_ITEM } from "../../utils/mutations";
-import { useMutation } from "@apollo/client";
-import { READ_GROUPS } from "../../utils/queries";
-import { DELETE_ITEM } from "../../utils/mutations";
+import { useState, useEffect } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { READ_ITEM, READ_GROUPS } from "../../utils/queries";
+import { UPDATE_ITEM, DELETE_ITEM } from "../../utils/mutations";
 
 const UpdateItem = ({ activeItemId, setActiveModal }) => {
-
-
-  const { loading, error, data } = useQuery(READ_ITEM, {
+  const { data } = useQuery(READ_ITEM, {
     variables: { _id: activeItemId },
   });
   const item = data?.readItem || null;
   const [newItemName, setNewItemName] = useState(item?.name || "");
-
   useEffect(() => {
     setNewItemName(item?.name || "");
   }, [item]);
-
 
   const [updateItem] = useMutation(UPDATE_ITEM, {
     refetchQueries: [{ query: READ_GROUPS }],
@@ -41,7 +32,6 @@ const UpdateItem = ({ activeItemId, setActiveModal }) => {
     }
   };
 
-
   const [deleteItem] = useMutation(DELETE_ITEM, {
     refetchQueries: [{ query: READ_GROUPS }],
   });
@@ -58,7 +48,6 @@ const UpdateItem = ({ activeItemId, setActiveModal }) => {
     }
   };
 
-
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="name">Item Name</label>
@@ -71,11 +60,9 @@ const UpdateItem = ({ activeItemId, setActiveModal }) => {
         onChange={(e) => setNewItemName(e.target.value)}
       />
       <div className="w3-section">
-      <a
+        <a
           className="w3-button w3-red"
-          onClick={
-            (e) => handleItemDelete(e, activeItemId)
-          }
+          onClick={(e) => handleItemDelete(e, activeItemId)}
         >
           Delete <i className="fa fa-remove" />
         </a>

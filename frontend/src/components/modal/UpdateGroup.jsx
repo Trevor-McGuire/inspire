@@ -1,27 +1,17 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
 import { READ_GROUPS, READ_GROUP } from "../../utils/queries";
 import { UPDATE_GROUP, DELETE_GROUP } from "../../utils/mutations";
-import { useQuery } from "@apollo/client";
-import { useEffect } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { useState, useEffect } from "react";
 
 const UpdateGroupForm = ({ activeGroupId, setActiveModal }) => {
-  
-  const [deleteGroup] = useMutation(DELETE_GROUP, {
-    refetchQueries: [{ query: READ_GROUPS }],
+  const { data } = useQuery(READ_GROUP, {
+    variables: { _id: activeGroupId },
   });
-  const handleGroupDelete = async (e, _id) => {
-    e.preventDefault();
-    try {
-      await deleteGroup({
-        variables: { _id },
-      });
-      setActiveModal(null);
-      console.log("Group deleted successfully:", data);
-    } catch (err) {
-      console.error("Group error:", err);
-    }
-  };
+  const group = data?.readGroup || null;
+  const [newGroupName, setNewGroupName] = useState(group?.name || "");
+  useEffect(() => {
+    setNewGroupName(group?.name || "");
+  }, [group]);
 
   const [updateGroup] = useMutation(UPDATE_GROUP, {
     refetchQueries: [{ query: READ_GROUPS }],
@@ -42,16 +32,21 @@ const UpdateGroupForm = ({ activeGroupId, setActiveModal }) => {
     }
   };
 
-
-  const { loading, error, data } = useQuery(READ_GROUP, {
-    variables: { _id: activeGroupId },
+  const [deleteGroup] = useMutation(DELETE_GROUP, {
+    refetchQueries: [{ query: READ_GROUPS }],
   });
-  const group = data?.readGroup || null;
-  const [newGroupName, setNewGroupName] = useState(group?.name || "");
-
-  useEffect(() => {
-    setNewGroupName(group?.name || "");
-  }, [group]);
+  const handleGroupDelete = async (e, _id) => {
+    e.preventDefault();
+    try {
+      await deleteGroup({
+        variables: { _id },
+      });
+      setActiveModal(null);
+      console.log("Group deleted successfully:", data);
+    } catch (err) {
+      console.error("Group error:", err);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -67,9 +62,7 @@ const UpdateGroupForm = ({ activeGroupId, setActiveModal }) => {
       <div className="w3-section">
         <a
           className="w3-button w3-red"
-          onClick={
-            (e) => handleGroupDelete(e, activeGroupId)
-          }
+          onClick={(e) => handleGroupDelete(e, activeGroupId)}
         >
           Delete <i className="fa fa-remove" />
         </a>

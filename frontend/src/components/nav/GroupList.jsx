@@ -1,11 +1,9 @@
-import { useMutation, useQuery } from "@apollo/client";
-
+import { useQuery } from "@apollo/client";
 import { READ_GROUPS } from "../../utils/queries";
-import { DELETE_GROUP, DELETE_ITEM } from "../../utils/mutations";
 import ItemList from "./ItemList";
 
 const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId }) => {
-  const { loading, error, data } = useQuery(READ_GROUPS);
+  const { loading, data } = useQuery(READ_GROUPS);
   const groups = data?.readGroups || {};
 
   function myFunc(id) {
@@ -21,7 +19,14 @@ const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId }) => {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    // return a spinner centered horizonally and vertically in the page;
+    return (
+      <div className="w3-display-middle">
+        <div className="w3-center">
+          <i className="fa fa-spinner w3-spin w3-jumbo" />
+        </div>
+      </div>
+    );
   }
 
   if (groups.length === 0) {
@@ -49,7 +54,14 @@ const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId }) => {
             >
               <i className="fa fa-inbox w3-margin-right" />
               {group.name}
-              <i className="fa fa-caret-down w3-margin-left" style={group.items.length === 0 ? {display: "none"} : {display: "inline"}}/>
+              <i
+                className="fa fa-caret-down w3-margin-left"
+                style={
+                  group.items.length === 0
+                    ? { display: "none" }
+                    : { display: "inline" }
+                }
+              />
               <div
                 type="button"
                 onClick={() => {

@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import { READ_GROUPS } from "../../utils/queries";
 import { CREATE_ITEM } from "../../utils/mutations";
 import { useState } from "react";
@@ -22,7 +21,7 @@ const CreateItem = ({ activeGroupId, setActiveModal }) => {
       });
       console.log("Item added successfully:", data);
       setNewItemName("");
-      setActiveModal(null)
+      setActiveModal(null);
     } catch (err) {
       console.error("Item error:", err);
     }
