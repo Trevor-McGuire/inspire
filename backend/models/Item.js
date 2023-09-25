@@ -1,4 +1,3 @@
-// item.js
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
@@ -12,6 +11,12 @@ const itemSchema = new mongoose.Schema({
     ref: 'Group',
     required: true, // Each item must belong to a group
   },
+  tags: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tag',
+    },
+  ],
 });
 
 const Item = mongoose.model('Item', itemSchema);

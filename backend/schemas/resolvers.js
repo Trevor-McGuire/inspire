@@ -54,8 +54,6 @@ const resolvers = {
         throw new Error("Error creating item: " + error.message);
       }
     },
-    
-    
     updateItem: async (parent, args, context) => {
       return await Item.findOneAndUpdate(
         { _id: args._id },
@@ -65,6 +63,20 @@ const resolvers = {
     },
     deleteItem: async (parent, args, context) => {
       return await Item.findOneAndDelete({ _id: args._id });
+    },
+    
+    createTag: async (parent, args, context) => {
+      return await Tag.create(args);
+    },
+    updateTag: async (parent, args, context) => {
+      return await Tag.findOneAndUpdate(
+        { _id: args._id },
+        { $set: { name: args.name } },
+        { new: true }
+      );
+    },
+    deleteTag: async (parent, args, context) => {
+      return await Tag.findOneAndDelete({ _id: args._id });
     },
     
   },
