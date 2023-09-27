@@ -1,9 +1,18 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 const ItemList = ({ group, setActiveModal, setActiveItemId }) => {
   return (
     <>
-      <div id={`Demo${group._id}`} className="w3-hide w3-animate-left">
+      <div 
+        className={"tm-item-list w3-animate-left w3-hide"}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         {group.items.map((item) => (
-          <div
+          <Link
+            to={`/${group._id}/${item._id}`}
             key={item._id}
             className="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"
           >
@@ -22,7 +31,7 @@ const ItemList = ({ group, setActiveModal, setActiveItemId }) => {
               </div>
             </div>
             
-          </div>
+          </Link>
         ))}
       </div>
     </>

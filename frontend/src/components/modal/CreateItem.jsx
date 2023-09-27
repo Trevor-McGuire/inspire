@@ -37,6 +37,7 @@ const CreateItem = ({ activeGroupId, setActiveModal }) => {
         name="name"
         value={newItemName}
         onChange={(e) => setNewItemName(e.target.value)}
+        autoFocus
       />
       <div className="w3-section">
         <button className="w3-button w3-light-grey w3-right" type="submit">

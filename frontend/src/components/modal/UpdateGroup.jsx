@@ -58,6 +58,7 @@ const UpdateGroupForm = ({ activeGroupId, setActiveModal }) => {
         name="name"
         value={newGroupName}
         onChange={(e) => setNewGroupName(e.target.value)}
+        autoFocus
       />
       <div className="w3-section">
         <a

@@ -16,22 +16,36 @@ function App() {
   const [activeGroupId, setActiveGroupId] = useState(null);
   const [activeItemId, setActiveItemId] = useState(null);
 
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+  }
 
   return (
     <ApolloProvider client={client}>
       <StrictMode>
-        <Nav 
-          setActiveModal={setActiveModal}  
+        <Nav
+          setActiveModal={setActiveModal}
           setActiveGroupId={setActiveGroupId}
           activeGroupId={activeGroupId}
           setActiveItemId={setActiveItemId}
           activeItemId={activeItemId}
         />
-        <Outlet 
+        <div className="w3-main w3-container" style={{ marginLeft: 320 }}>
+          <i
+            className="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-left w3-margin-top"
+            onClick={w3_open}
+          />
+          <Outlet />
+        </div>
 
-        />
-        <Modal 
-          activeModal={activeModal} 
+        <Modal
+          activeModal={activeModal}
           setActiveModal={setActiveModal}
           activeGroupId={activeGroupId}
           activeItemId={activeItemId}

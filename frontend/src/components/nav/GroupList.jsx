@@ -1,22 +1,17 @@
 import { useQuery } from "@apollo/client";
 import { READ_GROUPS } from "../../utils/queries";
 import ItemList from "./ItemList";
+import { Link } from "react-router-dom";
 
-const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId, activeGroupId, activeItemId }) => {
+const GroupList = ({
+  setActiveModal,
+  setActiveGroupId,
+  setActiveItemId,
+  activeGroupId,
+  activeItemId,
+}) => {
   const { loading, data } = useQuery(READ_GROUPS);
   const groups = data?.readGroups || {};
-
-  function myFunc(id) {
-    var x = document.getElementById(id);
-    if (x.className.indexOf("w3-show") == -1) {
-      x.className += " w3-show";
-      x.previousElementSibling.className += " w3-red";
-    } else {
-      x.className = x.className.replace(" w3-show", "");
-      x.previousElementSibling.className =
-        x.previousElementSibling.className.replace(" w3-red", "");
-    }
-  }
 
   if (loading) {
     // return a spinner centered horizonally and vertically in the page;
@@ -40,16 +35,31 @@ const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId, activeGr
     );
   }
 
+  const showHideItemLists = (e, id, override) => {
+    setActiveGroupId(id);
+    const thisList = e.currentTarget.lastElementChild;
+    const itemLists = document.querySelectorAll(".tm-item-list");
+    itemLists.forEach((itemList) => {
+      itemList !== thisList
+        ? itemList.classList.add("w3-hide")
+        : override
+        ? itemList.classList.remove("w3-hide")
+        : thisList.classList.toggle("w3-hide");
+    });
+  };
+
   return (
-    <div>
+    <>
       {groups &&
         groups.map((group) => (
-          <div key={group._id}>
-            <div
-              id="myBtn"
-              onClick={() => {
-                myFunc(`Demo${group._id}`);
-              }}
+          <div
+            id="group-list"
+            key={group._id}
+            onClick={(e) => showHideItemLists(e, group._id, false)}
+          >
+            <Link
+              // link to groupid
+              to={group._id}
               className="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey w3-large w3-vcenter"
             >
               <i className="fa fa-inbox w3-margin-right" />
@@ -64,9 +74,9 @@ const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId, activeGr
               />
               <div
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
+                  showHideItemLists(e, group._id, false);
                   setActiveModal("update-group");
-                  setActiveGroupId(group._id);
                 }}
                 className="w3-button w3-transparent w3-hover-red w3-large w3-right"
               >
@@ -74,15 +84,15 @@ const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId, activeGr
               </div>
               <div
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
+                  showHideItemLists(e, group._id, false);
                   setActiveModal("create-item");
-                  setActiveGroupId(group._id);
                 }}
                 className="w3-button w3-transparent w3-hover-red w3-large w3-right"
               >
                 <i className="fa fa-plus w3-margin-center" />
               </div>
-            </div>
+            </Link>
             <ItemList
               group={group}
               setActiveModal={setActiveModal}
@@ -90,7 +100,7 @@ const GroupList = ({ setActiveModal, setActiveGroupId, setActiveItemId, activeGr
             />
           </div>
         ))}
-    </div>
+    </>
   );
 };
 

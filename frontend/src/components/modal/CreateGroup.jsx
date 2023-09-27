@@ -34,6 +34,7 @@ const CreateGroup = ({ setActiveModal }) => {
         name="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        autoFocus
       />
       <div className="w3-section">
         <button className="w3-button w3-light-grey w3-right" type="submit">

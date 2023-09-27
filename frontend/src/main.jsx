@@ -1,34 +1,34 @@
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from './App.jsx';
-import Home from './pages/Home';
-import Project from './pages/Project';
-import Item from './pages/Item';
+import "./main.css";
+import App from "./App.jsx";
+import Home from "./pages/Home";
+import Group from "./pages/Group";
+import Item from "./pages/Item";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
         index: true,
-        element: <Home />
+        element: <Home />,
       },
       {
-        path: ':projectName',
-        element: <Project />,
-        children: [
-          {
-            path: ':itemName',
-            element: <Item />
-          }
-        ]
-      }
+        path: ":groupId/:itemId",
+        element: <Item />,
+      },
+      {
+        path: ":groupId",
+        element: <Group />,
+      },
+
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
 );

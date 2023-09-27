@@ -58,6 +58,7 @@ const UpdateItem = ({ activeItemId, setActiveModal }) => {
         name="name"
         value={newItemName}
         onChange={(e) => setNewItemName(e.target.value)}
+        autoFocus
       />
       <div className="w3-section">
         <a
