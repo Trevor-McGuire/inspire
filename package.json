@@ -1,0 +1,11 @@
+{
+  "name": "inspire",
+  "version": "2.0.0",
+  "description": "Inspire: Linking past experience to future success",
+  "scripts": {
+    "develop": "concurrently \"cd backend && npm run watch\" \"cd frontend && npm run dev\" "
+  },
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
